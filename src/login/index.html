@@ -33,14 +33,13 @@
                 </ul>
                 
                 <div class="d-flex align-items-center">
-                    <a href="#Ingresar" class="btn btn-primary-skyblue text-white px-4 py-2 me-2 rounded-2 fw-medium text-decoration-none">Ingresar</a>
-                    <a href="#Registrarse" class="text-dark text-decoration-none px-3 py-2 fw-medium">Registrarse</a>
+                    <a href="#Ingresar" class="text-dark px-4 py-2 me-2 rounded-2 fw-medium text-decoration-none">Ingresar</a>
+                    <a href="#Registrarse" class="btn btn-primary-skyblue text-white text-decoration-none px-3 py-2 fw-medium">Registrarse</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="bg-gradient-light d-flex align-items-center justify-content-center" style="min-height: 100vh; padding-top: 5rem;">
         <div class="container">
             <div class="row justify-content-center text-center">
@@ -50,13 +49,177 @@
                         Encuentra cuidado de confianza para tu amigo peludo o conviértete en cuidador y gana haciendo lo que amas.
                     </p>
                     <div class="fade-in-up">
-                        <a href="#dog-owner" class="btn btn-primary-skyblue text-white px-5 py-3 me-3 mb-3 rounded-3 fw-semibold fs-5 text-decoration-none d-inline-block">Soy humano de un perro</a>
-                        <a href="#caregiver" class="btn btn-light text-dark px-5 py-3 mb-3 rounded-3 fw-semibold fs-5 text-decoration-none d-inline-block border">Soy un cuidador</a>
+                        <button onclick="openRegistrationModal('owner')" class="btn btn-primary-skyblue text-white px-5 py-3 me-3 mb-3 rounded-3 fw-semibold fs-5 text-decoration-none d-inline-block">Soy humano de un perro</button>
+                        <button onclick="openRegistrationModal('caregiver')" class="btn btn-light text-dark px-5 py-3 mb-3 rounded-3 fw-semibold fs-5 text-decoration-none d-inline-block border">Soy un cuidador</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="registrationModalLabel">Registro de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registrationForm">
+                        <!-- Tipo de Usuario -->
+                        <div class="mb-3">
+                            <label for="userType" class="form-label fw-medium">Tipo de Usuario</label>
+                            <input type="text" class="form-control" id="userType" readonly>
+                        </div>
+
+                        <!-- Información Personal -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label fw-medium">Nombre</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label fw-medium">Apellido</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label fw-medium">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label fw-medium">Teléfono</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label fw-medium">Contraseña</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmPassword" class="form-label fw-medium">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                        </div>
+
+                        <!-- Campos específicos para dueño de mascota -->
+                        <div id="ownerFields" style="display: none;">
+                            <hr class="my-4">
+                            <h6 class="fw-bold mb-3">Información de tu Mascota</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="petName" class="form-label fw-medium">Nombre de la Mascota</label>
+                                    <input type="text" class="form-control" id="petName">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="petBreed" class="form-label fw-medium">Raza</label>
+                                    <input type="text" class="form-control" id="petBreed">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="petAge" class="form-label fw-medium">Edad</label>
+                                    <input type="number" class="form-control" id="petAge" min="0">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="petSize" class="form-label fw-medium">Tamaño</label>
+                                    <select class="form-select" id="petSize">
+                                        <option value="">Selecciona el tamaño</option>
+                                        <option value="pequeño">Pequeño</option>
+                                        <option value="mediano">Mediano</option>
+                                        <option value="grande">Grande</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campos específicos para cuidador -->
+                        <div id="caregiverFields" style="display: none;">
+                            <hr class="my-4">
+                            <h6 class="fw-bold mb-3">Información del Cuidador</h6>
+                            <div class="mb-3">
+                                <label for="experience" class="form-label fw-medium">Experiencia con Mascotas</label>
+                                <textarea class="form-control" id="experience" rows="3" placeholder="Describe tu experiencia cuidando mascotas..."></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="availability" class="form-label fw-medium">Disponibilidad</label>
+                                    <select class="form-select" id="availability">
+                                        <option value="">Selecciona tu disponibilidad</option>
+                                        <option value="tiempo-completo">Tiempo Completo</option>
+                                        <option value="medio-tiempo">Medio Tiempo</option>
+                                        <option value="fines-semana">Fines de Semana</option>
+                                        <option value="ocasional">Ocasional</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="priceRange" class="form-label fw-medium">Tarifa por Hora (CLP)</label>
+                                    <input type="number" class="form-control" id="priceRange" min="0" placeholder="Ej: 5000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Términos y Condiciones -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                Acepto los <a href="#" class="text-primary-skyblue">términos y condiciones</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary-skyblue" onclick="submitRegistration()">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openRegistrationModal(userType) {
+            const modal = new bootstrap.Modal(document.getElementById('registrationModal'));
+            const userTypeInput = document.getElementById('userType');
+            const ownerFields = document.getElementById('ownerFields');
+            const caregiverFields = document.getElementById('caregiverFields');
+            
+            // Establecer el tipo de usuario y bloquearlo
+            if (userType === 'owner') {
+                userTypeInput.value = 'Dueño de Mascota';
+                ownerFields.style.display = 'block';
+                caregiverFields.style.display = 'none';
+            } else if (userType === 'caregiver') {
+                userTypeInput.value = 'Cuidador de Mascotas';
+                ownerFields.style.display = 'none';
+                caregiverFields.style.display = 'block';
+            }
+            
+            modal.show();
+        }
+        
+        function submitRegistration() {
+            const form = document.getElementById('registrationForm');
+            
+            if (form.checkValidity()) {
+                // Aquí puedes agregar la lógica para enviar los datos al servidor
+                alert('Registro exitoso! Te contactaremos pronto.');
+                
+                // Cerrar el modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('registrationModal'));
+                modal.hide();
+                
+                // Limpiar el formulario
+                form.reset();
+            } else {
+                form.reportValidity();
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/442916b3e7.js" crossorigin="anonymous"></script>
